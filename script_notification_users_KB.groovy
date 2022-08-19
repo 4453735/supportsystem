@@ -1,7 +1,6 @@
 // Добавление в получатели оповещения сотрудников компании, отмеченных checkbox
 def noIncludeSubscribe  = utils.find('ou$company', ['testCheckBox':'true']);
 noIncludeSubscribe = noIncludeSubscribe.employees
-
 noIncludeSubscribe.each({def company->
     company.each({def employers->
       notification.toEmployee << employers;
