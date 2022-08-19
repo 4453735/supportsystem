@@ -1,11 +1,12 @@
 // Добавление в получатели оповещения сотрудников компании, отмеченных checkbox
 def noIncludeSubscribe  = utils.find('ou$company', ['testCheckBox':'true']);
-for(int i = 0;i < noIncludeSubscribe.employees.size(); i++) {
-         for(int y = 0; y < noIncludeSubscribe.employees[i].size(); y++){
-            notification.toEmployee << noIncludeSubscribe.employees[i][y];
-            // logger.info(noIncludeSubscribe.employees.email[i][y]);
-         }
-      }
+noIncludeSubscribe = noIncludeSubscribe.employees
+
+noIncludeSubscribe.each({def company->
+    company.each({def employers->
+      logger.info("${employers}")
+    })
+})
 
 
 notification.scriptParams['author'] = (subject.author) ? subject.author.title : 'Суперпользователь'
